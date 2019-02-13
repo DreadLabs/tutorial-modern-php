@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExampleApp;
 
+use Psr\Http\Message\ResponseInterface;
+
 class HelloWorld
 {
     /**
@@ -10,15 +12,22 @@ class HelloWorld
      */
     private $foo;
 
-    public function __construct(string $foo)
+    /**
+     * @var ResponseInterface
+     */
+    private $response;
+
+    public function __construct(string $foo, ResponseInterface $response)
     {
         $this->foo = $foo;
+        $this->response = $response;
     }
 
-    public function __invoke(): void
+    public function __invoke(): ResponseInterface
     {
-        echo sprintf('Hello, %s world!', $this->foo);
+        $response = $this->response->withHeader('Content-Type', 'text/html');
+        $response->getBody()->write(sprintf('<html><head></head><body>Hello, %s world!</body>', $this->foo));
 
-        exit;
+        return $response;
     }
 }

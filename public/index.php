@@ -6,7 +6,9 @@ use ExampleApp\HelloWorld;
 use FastRoute\RouteCollector;
 use Middlewares\FastRoute;
 use Middlewares\RequestHandler;
+use Narrowspark\HttpEmitter\SapiEmitter;
 use Relay\Relay;
+use Zend\Diactoros\Response;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -15,8 +17,14 @@ $containerBuilder->useAutowiring(false);
 $containerBuilder->useAnnotations(false);
 $containerBuilder->addDefinitions(
     [
-        HelloWorld::class => \DI\create(HelloWorld::class)->constructor(\DI\get('Foo')),
+        HelloWorld::class => \DI\create(HelloWorld::class)->constructor(
+            \DI\get('Foo'),
+            \DI\get('Response')
+        ),
         'Foo' => 'bar',
+        'Response' => function() {
+            return new Response();
+        },
     ]
 );
 
@@ -33,4 +41,7 @@ $middlewareQueue[] = new FastRoute($routes);
 $middlewareQueue[] = new RequestHandler($container);
 
 $requestHandler = new Relay($middlewareQueue);
-$requestHandler->handle(\Zend\Diactoros\ServerRequestFactory::fromGlobals());
+$response = $requestHandler->handle(\Zend\Diactoros\ServerRequestFactory::fromGlobals());
+
+$emitter = new SapiEmitter();
+$emitter->emit($response);

@@ -15,7 +15,8 @@
         "relay/relay": "2.x@dev",
         "zendframework/zend-diactoros": "^2.1",
         "middlewares/fast-route": "^1.2",
-        "middlewares/request-handler": "^1.4"
+        "middlewares/request-handler": "^1.4",
+        "narrowspark/http-emitter": "^0.7.0"
     },
     "autoload": {
         "psr-4": {
