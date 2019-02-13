@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ ! -f composer.json ]; then
+    docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev composer init
+else
+    echo "==> This project is already initialized."
+fi

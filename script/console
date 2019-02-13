@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+if [ "x$1" == "x" ]; then
+    echo "Please choose one of the following sub-consoles:"
+    echo
+    echo " * composer"
+    echo
+    echo "Arguments following will be passed through to the selected sub-console."
+elif [ "x$1" == "xcomposer" ]; then
+    shift
+    docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev composer "$@"
+else
+    echo "==> Unknown sub-console $1"
+
+    exit 1
+fi
