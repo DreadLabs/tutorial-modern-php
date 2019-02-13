@@ -5,9 +5,20 @@ namespace ExampleApp;
 
 class HelloWorld
 {
+    /**
+     * @var string
+     */
+    private $foo;
+
+    public function __construct(string $foo)
+    {
+        $this->foo = $foo;
+    }
+
     public function __invoke(): void
     {
-        echo 'Hello, autoloaded world!';
+        echo sprintf('Hello, %s world!', $this->foo);
+
         exit;
     }
 }

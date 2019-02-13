@@ -15,7 +15,8 @@ $containerBuilder->useAutowiring(false);
 $containerBuilder->useAnnotations(false);
 $containerBuilder->addDefinitions(
     [
-        HelloWorld::class => \DI\create(HelloWorld::class),
+        HelloWorld::class => \DI\create(HelloWorld::class)->constructor(\DI\get('Foo')),
+        'Foo' => 'bar',
     ]
 );
 
@@ -29,7 +30,7 @@ $routes = \FastRoute\simpleDispatcher(
 
 $middlewareQueue = [];
 $middlewareQueue[] = new FastRoute($routes);
-$middlewareQueue[] = new RequestHandler();
+$middlewareQueue[] = new RequestHandler($container);
 
 $requestHandler = new Relay($middlewareQueue);
 $requestHandler->handle(\Zend\Diactoros\ServerRequestFactory::fromGlobals());
