@@ -9,6 +9,8 @@ if [ "x$1" == "x" ]; then
     echo "Arguments following will be passed through to the selected sub-console."
 elif [ "x$1" == "xcomposer" ]; then
     shift
+    # TODO: use unprivileged user
+    # TODO: use composer cache volume
     docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev composer "$@"
 elif [ "x$1" == "xrepl" ]; then
     docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev psysh
