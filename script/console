@@ -4,11 +4,14 @@ if [ "x$1" == "x" ]; then
     echo "Please choose one of the following sub-consoles:"
     echo
     echo " * composer"
+    echo " * repl"
     echo
     echo "Arguments following will be passed through to the selected sub-console."
 elif [ "x$1" == "xcomposer" ]; then
     shift
     docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev composer "$@"
+elif [ "x$1" == "xrepl" ]; then
+    docker run --rm -ti -v $(pwd):/app --workdir /app dreadlabs/php-lib:7.3-dev psysh
 else
     echo "==> Unknown sub-console $1"
 
