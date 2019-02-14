@@ -11,12 +11,13 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php-di/php-di": "^6.0",
-        "relay/relay": "2.x@dev",
-        "zendframework/zend-diactoros": "^2.1",
+        "php": "^7.3",
         "middlewares/fast-route": "^1.2",
         "middlewares/request-handler": "^1.4",
-        "narrowspark/http-emitter": "^0.7.0"
+        "narrowspark/http-emitter": "^0.7.0",
+        "php-di/php-di": "^6.0",
+        "relay/relay": "2.x@dev",
+        "zendframework/zend-diactoros": "^2.1"
     },
     "autoload": {
         "psr-4": {
