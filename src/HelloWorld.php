@@ -32,7 +32,7 @@ class HelloWorld implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $this->response->withHeader('Content-Type', 'text/html');
-        $response->getBody()->write(sprintf('<html><head></head><body>Hello, %s world!</body>', $this->foo));
+        $response->getBody()->write(sprintf('<html><head></head><body>Hello, %s world!</body>', $request->getAttribute('name', $this->foo)));
 
         return $response;
     }

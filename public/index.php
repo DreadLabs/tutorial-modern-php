@@ -33,7 +33,7 @@ $container = $containerBuilder->build();
 
 $routes = \FastRoute\simpleDispatcher(
     function (RouteCollector $r) {
-        $r->get('/hello', HelloWorld::class);
+        $r->get('/hello[/{name}]', HelloWorld::class);
     }
 );
 
